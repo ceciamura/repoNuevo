@@ -1,6 +1,9 @@
 
 package com.proyectoFinal.proyectoFinal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,6 +19,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 
+
+
 @Getter @Setter
 @Entity
 @Table(name="tipoEducacion")
@@ -29,25 +34,24 @@ public class Tipo_educacion {
     @Column (name="nombreTipoEducacion")
     private String nombreTipoEducacion;
     
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(
-            name = "tipoEducacion_educacion",
-            joinColumns = {@JoinColumn(name = "tipoEducacion_id")},
-            inverseJoinColumns = {@JoinColumn(name = "educacion_id")}
-    )
-    private Set<Educacion> educaciones;
+  
+    
+  @ManyToMany(mappedBy="tipoEducaciones")
+  @JsonIgnore
+ private Collection<Educacion> educaciones = new HashSet();
 
 
     public Tipo_educacion() {
     }
+    
+    
+    
 
-    public Tipo_educacion(Long id, String nombreTipoEducacion, Set<Educacion> educaciones) {
+    public Tipo_educacion(Long id, String nombreTipoEducacion) {
         this.id = id;
         this.nombreTipoEducacion = nombreTipoEducacion;
-        this.educaciones = educaciones;
+        //this.educaciones = educaciones;
+        
     }
 
   

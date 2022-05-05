@@ -1,11 +1,13 @@
 
 package com.proyectoFinal.proyectoFinal.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 
@@ -20,34 +22,35 @@ import lombok.Setter;
 @Setter
 public class Users {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
-    
-    
-    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
     @Column(name="id")
     private Long id;
     
-    @Column (name="EmailUsuario")
+    @Column (name="emailUsuario")
     private String emailUsuario;
     
-    @Column (name="Contrasenia")
+    @Column (name="contrasenia")
     private String contrasenia;
     
-    
-    
-    
+    //Mapeo con persona
+    @OneToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name="fk_persona")
+    private Persona persona;
     
 
     public Users() {
     }
-    
-    public Users(Long id, String emailUsuario, String contrasenia) {
+
+    public Users(Long id, String emailUsuario, String contrasenia, Persona persona) {
         this.id = id;
         this.emailUsuario = emailUsuario;
         this.contrasenia = contrasenia;
-       
+        this.persona = persona;
     }
+
+    
+    
+    
 
     
 
@@ -59,3 +62,4 @@ public class Users {
     
     
 }
+

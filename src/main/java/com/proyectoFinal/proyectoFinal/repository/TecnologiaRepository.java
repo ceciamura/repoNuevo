@@ -7,5 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TecnologiaRepository extends JpaRepository<Tecnologia, Long>{
+
+   
     
 }

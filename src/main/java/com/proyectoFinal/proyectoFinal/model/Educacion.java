@@ -1,7 +1,10 @@
 
 package com.proyectoFinal.proyectoFinal.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,23 +43,25 @@ public class Educacion {
     private Date fechaFin;
     
     @ManyToOne
-    @JoinColumn(name="persona_idPersona")
-    private Persona persona_idPersona; 
+    @JoinColumn(name="persona_id")
+    @JsonBackReference
+    private Persona persona_id;
     
-    @ManyToMany(mappedBy = "educaciones")
-     private Set<Tipo_educacion> tiposEducaciones;
-
+   @ManyToMany
+   private Collection<Tipo_educacion> tipoEducaciones = new HashSet();
+    
     public Educacion() {
     }
 
-    public Educacion(Long id, String nombreEducacion, Date fechaInicio, Date fechaFin, Persona persona_idPersona, Set<Tipo_educacion> tiposEducaciones) {
-        this.id= id;
+    public Educacion(Long id, String nombreEducacion, Date fechaInicio, Date fechaFin, Persona persona_id) {
+        this.id = id;
         this.nombreEducacion = nombreEducacion;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
-        this.persona_idPersona = persona_idPersona;
-        this.tiposEducaciones = tiposEducaciones;
+        this.persona_id = persona_id;
     }
+
+    
     
     
 }

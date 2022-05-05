@@ -1,17 +1,16 @@
 
 package com.proyectoFinal.proyectoFinal.model;
 
-
-import java.io.Serializable;
-import java.util.Set;
-import javax.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.Collection;
+import java.util.HashSet;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -32,24 +31,23 @@ private Long id;
 @Column(name="nombre")
 private String nombre;
 
-@ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(
-            name = "tecnologia_proyecto",
-            joinColumns = {@JoinColumn(name = "tecnologia_id")},
-            inverseJoinColumns = {@JoinColumn(name = "proyecto_id")}
-    )
-    private Set<Proyecto> proyectos;
+
+ @ManyToMany(mappedBy="tecnologias")
+ @JsonIgnore
+ private Collection<Proyecto> Proyecto = new HashSet();
+
+ 
+ 
+
+
 
     public Tecnologia() {
     }
 
-    public Tecnologia(Long id, String nombre, Set<Proyecto> proyectos) {
+    public Tecnologia(Long id, String nombre) {
         this.id = id;
         this.nombre = nombre;
-        this.proyectos = proyectos;
+        //this.proyectos = proyectos;
     }
 
 

@@ -1,17 +1,23 @@
 
 package com.proyectoFinal.proyectoFinal.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.util.Collection;
+
 import java.util.Date;
+import java.util.HashSet;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,54 +26,72 @@ import lombok.Setter;
 @Entity
 @Table(name="experiencia_laboral")
 public class Experiencia_laboral {
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
     @Column(name="id")
-    private Long id;
-    
-    @Column (name="nombreExperiencia")
-    private String nombreExperiencia;
+    private Long id;    
+    @Column (name="nombre_experiencia")
+    private String nombre_experiencia;
     
     @Column (name="es_actual")
-    private boolean es_Actual;
+    private boolean es_actual;
     
-    @Temporal (TemporalType.DATE)
-    @Column (name="fechaInicio")
-    private Date fechaInicio;
     
-    @Temporal (TemporalType.DATE)
-    @Column (name="fechaFin")
-    private Date fechaFin;
+    
+   
+    @Temporal(javax.persistence.TemporalType.DATE)
+     @Column (name="fecha_inicio")
+     @JsonFormat(pattern="yyyy-MM-dd")
+    private Date fecha_inicio;
+    
+    
+   
+     
+  
+    @Temporal(javax.persistence.TemporalType.DATE)
+    @Column (name="fecha_fin")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date fecha_fin;
      
      
     @Column (name="descripcion")
     private String descripcion;
      
     @ManyToOne
-    @JoinColumn(name="persona_idPersona")
-     private Persona persona_idPersona; 
+    @JoinColumn(name="persona_id")
+    @JsonBackReference
+    private Persona persona_id;
     
-    @ManyToOne
-    @JoinColumn(name="tipoDeTrabajo_idTrabajo")
-    private Tipo_trabajo tipoDeTrabajo_idTrabajo; 
+   @ManyToMany
+   private Collection<Tipo_trabajo> tipoTrabajos = new HashSet();
+    
+   
 
     public Experiencia_laboral() {
     }
 
-    public Experiencia_laboral(Long id, String nombreExperiencia, boolean es_Actual, Date fechaInicio, Date fechaFin, String descripcion, Persona persona_idPersona, Tipo_trabajo tipoDeTrabajo_idTrabajo) {
-        this.id= id;
-        this.nombreExperiencia = nombreExperiencia;
-        this.es_Actual = es_Actual;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
+    public Experiencia_laboral(Long id, String nombre_experiencia, boolean es_actual, Date fecha_inicio, Date fecha_fin, String descripcion, Persona persona_id) {
+        this.id = id;
+        this.nombre_experiencia = nombre_experiencia;
+        this.es_actual = es_actual;
+        this.fecha_inicio = fecha_inicio;
+        this.fecha_fin = fecha_fin;
         this.descripcion = descripcion;
-        this.persona_idPersona = persona_idPersona;
-        this.tipoDeTrabajo_idTrabajo = tipoDeTrabajo_idTrabajo;
+        this.persona_id = persona_id;
     }
 
    
+   
+
+  
+
+
+
     
-     
+
+   
+    
+    
      
 }

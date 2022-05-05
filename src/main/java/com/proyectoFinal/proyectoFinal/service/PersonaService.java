@@ -33,5 +33,6 @@ import org.springframework.stereotype.Service;
     public Persona buscarPersona(Long id) {
         return persoRepo.findById(id).orElse(null);
     }
+
     
 }

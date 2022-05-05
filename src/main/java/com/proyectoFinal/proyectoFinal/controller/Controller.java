@@ -11,6 +11,8 @@ import com.proyectoFinal.proyectoFinal.model.Tipo_educacion;
 import com.proyectoFinal.proyectoFinal.model.Tipo_trabajo;
 
 import com.proyectoFinal.proyectoFinal.model.Users;
+import com.proyectoFinal.proyectoFinal.repository.PersonaRepository;
+import com.proyectoFinal.proyectoFinal.repository.UserRepository;
 import com.proyectoFinal.proyectoFinal.service.IEducacionService;
 import com.proyectoFinal.proyectoFinal.service.IExperienciaLaboralService;
 import com.proyectoFinal.proyectoFinal.service.IPersonaService;
@@ -21,11 +23,15 @@ import com.proyectoFinal.proyectoFinal.service.ITipoEducacionService;
 import com.proyectoFinal.proyectoFinal.service.ITipoTrabajoService;
 import com.proyectoFinal.proyectoFinal.service.IUserService;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,17 +42,27 @@ public class Controller {
   //Controller persona  
     @Autowired
     private IPersonaService persoServ;
+    
+    @Autowired
+    private PersonaRepository persoRepo;
    
    @PostMapping("/new/persona")
    public void crearPersona (@RequestBody Persona pers){
       persoServ.crearPersona(pers);
-   }
+  }
+   
+   @GetMapping( "/buscarPersona/{id}")
+   public Persona buscarPersona(@PathVariable Long id) {
+   return persoServ.buscarPersona(id);
+	}
+   
    
    @GetMapping("/ver/personas")
    @ResponseBody 
    public  List<Persona> verPersonas(){
         return persoServ.verPersonas();
    }
+   
    
    @DeleteMapping("/delete/{id}")
    public void borrarPersona(@PathVariable Long id){
@@ -71,12 +87,16 @@ public class Controller {
    public List<Sexo> verSexo(){
        return sexoServ.verSexo();
    }
+   @GetMapping( "/buscarSexo/{id}")
+   public Sexo buscarSexo(@PathVariable Long id) {
+   return sexoServ.buscarSexo(id);
+	}
    
    @DeleteMapping("/deleteSexo/{id}")
    public void borrarSexo(@PathVariable Long id){
        sexoServ.borrarSexo(id);
    }
-   //agregar update sexo
+   
    
     //------------------------------------------------------------------------- 
    //Controller User
@@ -84,8 +104,13 @@ public class Controller {
    @Autowired
    private IUserService userServ;
    
+
+    
+   
+   
    @PostMapping("/new/user")
-   public void crearUser(@RequestBody Users user){
+   //@ResponseBody
+   public  void crearUser(@RequestBody Users user){
        userServ.crearUser(user);
        
    }
@@ -96,11 +121,29 @@ public class Controller {
        return userServ.verUsers();
    }
    
+   @GetMapping( "/buscarUser/{id}")
+   public Users buscarUser(@PathVariable Long id) {
+   return userServ.buscarUser(id);
+	}
+   
    @DeleteMapping("/deleteUser/{id}")
    public void borrarUser(@PathVariable Long id){
        userServ.borrarUser(id);
    }
-   //agregar update sexo
+   
+   
+   @GetMapping("/userEmail/{emailUsuario}")
+   @ResponseBody
+   public Users emailUsuario(@PathVariable  String emailUsuario){
+        return userServ.findByEmailUsuario(emailUsuario);
+   }
+   
+    @PostMapping("/userLogin")
+    @ResponseBody
+    public Users login(@RequestBody Users u){
+    return(userServ.findByEmailUsuarioAndContrasenia(u.getEmailUsuario(), u.getContrasenia()));
+}
+   
    
     //------------------------------------------------------------------------- 
    //Controller Proyecto
@@ -119,6 +162,12 @@ public class Controller {
    public List<Proyecto> verProyectos(){
        return proyServ.verProyectos();
    }
+   
+   @GetMapping( "/buscarProyecto/{id}")
+   public Proyecto buscarProyecto(@PathVariable Long id) {
+   return proyServ.buscarProyecto(id);
+	}
+   
    
    @DeleteMapping("/deleteProyecto/{id}")
    public void borrarProyecto(@PathVariable Long id){
@@ -144,6 +193,11 @@ public class Controller {
        return tecnoServ.verTecnologias();
    }
    
+   @GetMapping( "/buscarTecnologia/{id}")
+   public Tecnologia buscarTecnologia(@PathVariable Long id) {
+   return tecnoServ.buscarTecnologia(id);
+	}
+   
    @DeleteMapping("/deleteTecnologia/{id}")
    public void borrarTecnologia(@PathVariable Long id){
        tecnoServ.borrarTecnologia(id);
@@ -156,22 +210,28 @@ public class Controller {
    @Autowired
    private IExperienciaLaboralService expoServ;
    
-   @PostMapping("/new/experienciaLab")
+   @PostMapping("/new/experiencia")
    public void crearExperienciaLaboral(@RequestBody Experiencia_laboral expo){
        expoServ.crearExperienciaLaboral(expo);
        
    }
    
-   @GetMapping("/ver/experienciaLab")
+   @GetMapping("/ver/experiencia")
    @ResponseBody
    public List<Experiencia_laboral> verExperienciaLaboral(){
        return expoServ.verExperienciaLaboral();
    }
    
+   @GetMapping( "/buscarExperiencia/{id}")
+   public Experiencia_laboral buscarExperienciaLaboral(@PathVariable Long id) {
+   return expoServ.buscarExperienciaLaboral(id);
+	}
+   
    @DeleteMapping("/deleteExperiencia/{id}")
    public void borrarExperienciaLaboral(@PathVariable Long id){
        expoServ.borrarExperienciaLaboral(id);
    }
+   
    //agregar update tecnologia
    
    //------------------------------------------------------------------------- 
@@ -191,6 +251,11 @@ public class Controller {
    public List<Tipo_educacion> verTipoEducacion(){
        return tipoEduServ.verTipoEducacion();
    }
+   
+   @GetMapping( "/buscartipoEdu/{id}")
+   public Tipo_educacion buscarTipoEducacion(@PathVariable Long id) {
+   return tipoEduServ.buscarTipoEducacion(id);
+	}
    
    @DeleteMapping("/deleteTipoEdu/{id}")
    public void borrarTipoEducacion(@PathVariable Long id){
@@ -215,6 +280,11 @@ public class Controller {
        return tipoTrabServ.verTipoTrabajos();
    }
    
+   @GetMapping( "/buscarTipoTrabajo/{id}")
+   public Tipo_trabajo buscarTipoTrabajo(@PathVariable Long id) {
+   return tipoTrabServ.buscarTipoTrabajo(id);
+	}
+   
    @DeleteMapping("/deleteTipoTrabajo/{id}")
    public void borrarTipoTrabjo(@PathVariable Long id){
        tipoTrabServ.borrarTipoTrabajo(id);
@@ -238,11 +308,19 @@ public class Controller {
        return eduServ.verEducacion();
    }
    
+   @GetMapping( "/buscarEducacion/{id}")
+   public Educacion buscarEducacion(@PathVariable Long id) {
+   return eduServ.buscarEducacion(id);
+	}
+   
    @DeleteMapping("/deleteEducacion/{id}")
    public void borrarEducacion(@PathVariable Long id){
        eduServ.borrarEducacion(id);
    }
    //agregar update educacion
    
+
+  
+
 }
 

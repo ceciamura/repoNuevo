@@ -17,7 +17,7 @@ public class UserService implements IUserService {
     public List<Users> verUsers() {
          return userRepo.findAll();
     }
-
+  
     @Override
     public void crearUser(Users user) {
           userRepo.save(user);
@@ -33,5 +33,17 @@ public class UserService implements IUserService {
          return userRepo.findById(id).orElse(null);
 
     }
-    //falta update
+
+    @Override
+    public Users findByEmailUsuario(String emailUsuario){
+    return userRepo.findByEmailUsuario(emailUsuario);
+    }
+    
+
+    
+    @Override
+    public Users findByEmailUsuarioAndContrasenia(String emailUsuario, String contrasenia) {
+         return userRepo.findByEmailUsuarioAndContrasenia(emailUsuario, contrasenia);
+    }
+   
 }
