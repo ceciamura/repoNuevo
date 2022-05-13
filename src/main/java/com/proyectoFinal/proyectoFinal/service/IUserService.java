@@ -11,7 +11,8 @@ public interface IUserService {
     public void borrarUser (Long id);
     public Users buscarUser (Long id);
     public Users findByEmailUsuario(String emailUsuario);
-     public Users findByEmailUsuarioAndContrasenia(String emailUsuario, String contrasenia);
+    public Users findByEmailUsuarioAndContrasenia(String emailUsuario, String contrasenia);
+    public void editarUser(Users u);
    
     
 }

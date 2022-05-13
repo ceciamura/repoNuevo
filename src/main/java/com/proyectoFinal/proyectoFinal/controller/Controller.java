@@ -9,10 +9,7 @@ import com.proyectoFinal.proyectoFinal.model.Sexo;
 import com.proyectoFinal.proyectoFinal.model.Tecnologia;
 import com.proyectoFinal.proyectoFinal.model.Tipo_educacion;
 import com.proyectoFinal.proyectoFinal.model.Tipo_trabajo;
-
 import com.proyectoFinal.proyectoFinal.model.Users;
-import com.proyectoFinal.proyectoFinal.repository.PersonaRepository;
-import com.proyectoFinal.proyectoFinal.repository.UserRepository;
 import com.proyectoFinal.proyectoFinal.service.IEducacionService;
 import com.proyectoFinal.proyectoFinal.service.IExperienciaLaboralService;
 import com.proyectoFinal.proyectoFinal.service.IPersonaService;
@@ -22,128 +19,145 @@ import com.proyectoFinal.proyectoFinal.service.ITecnologiaService;
 import com.proyectoFinal.proyectoFinal.service.ITipoEducacionService;
 import com.proyectoFinal.proyectoFinal.service.ITipoTrabajoService;
 import com.proyectoFinal.proyectoFinal.service.IUserService;
+
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/")
 public class Controller {
  
   //Controller persona  
     @Autowired
     private IPersonaService persoServ;
     
-    @Autowired
-    private PersonaRepository persoRepo;
    
-   @PostMapping("/new/persona")
+   
+   @PostMapping("persona/new")
    public void crearPersona (@RequestBody Persona pers){
       persoServ.crearPersona(pers);
   }
    
-   @GetMapping( "/buscarPersona/{id}")
+   @GetMapping( "persona/buscar/{id}")
    public Persona buscarPersona(@PathVariable Long id) {
    return persoServ.buscarPersona(id);
 	}
    
    
-   @GetMapping("/ver/personas")
+   @GetMapping("persona/ver")
    @ResponseBody 
    public  List<Persona> verPersonas(){
         return persoServ.verPersonas();
    }
    
    
-   @DeleteMapping("/delete/{id}")
+   @DeleteMapping("persona/delete/{id}")
    public void borrarPersona(@PathVariable Long id){
        persoServ.borrarPersona(id);
    }
-   //agregar update persona 
+  
+    @PutMapping("persona/edit")
+   public void editarPersona(@RequestBody Persona per){
+       persoServ.editarPersona(per);
+   }
    
+    @PutMapping("persona/editar/{id}")
+   public Persona editarPersonaConId(@RequestBody Persona per, @PathVariable Long id){
+       return persoServ.editarPersonaConId(per, id);
+   }
+  
     //------------------------------------------------------------------------- 
    //Controller Sexo
    
    @Autowired
    private ISexoService sexoServ;
    
-   @PostMapping("/new/sexo")
+   @PostMapping("sexo/new")
    public void crearSexo(@RequestBody Sexo sexo){
        sexoServ.crearSexo(sexo);
        
+      
    }
    
-   @GetMapping("/ver/sexo")
+   @GetMapping("sexo/ver")
    @ResponseBody
    public List<Sexo> verSexo(){
        return sexoServ.verSexo();
    }
-   @GetMapping( "/buscarSexo/{id}")
+   @GetMapping( "sexo/buscar/{id}")
    public Sexo buscarSexo(@PathVariable Long id) {
    return sexoServ.buscarSexo(id);
 	}
    
-   @DeleteMapping("/deleteSexo/{id}")
+   @DeleteMapping("sexo/delete/{id}")
    public void borrarSexo(@PathVariable Long id){
        sexoServ.borrarSexo(id);
    }
    
    
+     @PutMapping("sexo/edit")
+   public void editarSexo(@RequestBody Sexo sexo){
+     sexoServ.editarSexo(sexo);
+   }
+   
     //------------------------------------------------------------------------- 
    //Controller User
    
    @Autowired
-   private IUserService userServ;
+   private IUserService userServ;   
    
-
-    
-   
-   
-   @PostMapping("/new/user")
+   @PostMapping("user/new")
    //@ResponseBody
    public  void crearUser(@RequestBody Users user){
        userServ.crearUser(user);
-       
    }
    
-   @GetMapping("/ver/user")
+   @GetMapping("user/ver")
    @ResponseBody
    public List<Users> verUsers(){
        return userServ.verUsers();
    }
    
-   @GetMapping( "/buscarUser/{id}")
+   @GetMapping( "user/buscar/{id}")
    public Users buscarUser(@PathVariable Long id) {
    return userServ.buscarUser(id);
 	}
    
-   @DeleteMapping("/deleteUser/{id}")
+   @DeleteMapping("user/delete/{id}")
    public void borrarUser(@PathVariable Long id){
        userServ.borrarUser(id);
    }
    
+   @PutMapping("user/edit")
+   public void editarUser(@RequestBody Users u){
+       userServ.editarUser(u);
+   }
    
-   @GetMapping("/userEmail/{emailUsuario}")
+   
+   @GetMapping("user/email/{emailUsuario}")
    @ResponseBody
    public Users emailUsuario(@PathVariable  String emailUsuario){
         return userServ.findByEmailUsuario(emailUsuario);
    }
    
-    @PostMapping("/userLogin")
+    @PostMapping("user/login")
     @ResponseBody
     public Users login(@RequestBody Users u){
     return(userServ.findByEmailUsuarioAndContrasenia(u.getEmailUsuario(), u.getContrasenia()));
 }
    
+  
+   
+    
    
     //------------------------------------------------------------------------- 
    //Controller Proyecto
@@ -151,29 +165,33 @@ public class Controller {
    @Autowired
    private IProyectoService proyServ;
    
-   @PostMapping("/new/proyecto")
+   @PostMapping("proyecto/new")
    public void crearProyecto(@RequestBody Proyecto proy){
        proyServ.crearProyecto(proy);
        
    }
    
-   @GetMapping("/ver/proyecto")
+   @GetMapping("proyecto/ver")
    @ResponseBody
    public List<Proyecto> verProyectos(){
        return proyServ.verProyectos();
    }
    
-   @GetMapping( "/buscarProyecto/{id}")
+   @GetMapping( "proyecto/buscar/{id}")
    public Proyecto buscarProyecto(@PathVariable Long id) {
    return proyServ.buscarProyecto(id);
 	}
    
    
-   @DeleteMapping("/deleteProyecto/{id}")
+   @DeleteMapping("proyecto/delete/{id}")
    public void borrarProyecto(@PathVariable Long id){
        proyServ.borrarProyecto(id);
    }
-   //agregar update proyecto
+  
+   @PutMapping("proyecto/edit")
+   public void editarProyecto(@RequestBody Proyecto proy){
+      proyServ.editarProyecto(proy);
+   }
    
    //------------------------------------------------------------------------- 
    //Controller Tecnologia
@@ -181,28 +199,32 @@ public class Controller {
    @Autowired
    private ITecnologiaService tecnoServ;
    
-   @PostMapping("/new/tecnologia")
+   @PostMapping("tecnologia/new")
    public void crearTecnologia(@RequestBody Tecnologia tecno){
        tecnoServ.crearTecnologia(tecno);
        
    }
    
-   @GetMapping("/ver/tecnologia")
+   @GetMapping("tecnologia/ver")
    @ResponseBody
    public List<Tecnologia> verTecnologias(){
        return tecnoServ.verTecnologias();
    }
    
-   @GetMapping( "/buscarTecnologia/{id}")
+   @GetMapping( "tecnologia/buscar/{id}")
    public Tecnologia buscarTecnologia(@PathVariable Long id) {
    return tecnoServ.buscarTecnologia(id);
 	}
    
-   @DeleteMapping("/deleteTecnologia/{id}")
+   @DeleteMapping("tecnologia/delete/{id}")
    public void borrarTecnologia(@PathVariable Long id){
        tecnoServ.borrarTecnologia(id);
    }
-   //agregar update tecnologia
+   
+   @PutMapping("tecnologia/edit")
+   public void editarTecnologia(@RequestBody Tecnologia tecno){
+     tecnoServ.editarTecnologia(tecno);
+   }
    
     //------------------------------------------------------------------------- 
    //Controller Experiencia Laboral
@@ -210,29 +232,32 @@ public class Controller {
    @Autowired
    private IExperienciaLaboralService expoServ;
    
-   @PostMapping("/new/experiencia")
+   @PostMapping("experiencia/new")
    public void crearExperienciaLaboral(@RequestBody Experiencia_laboral expo){
        expoServ.crearExperienciaLaboral(expo);
        
    }
    
-   @GetMapping("/ver/experiencia")
+   @GetMapping("experiencia/ver")
    @ResponseBody
    public List<Experiencia_laboral> verExperienciaLaboral(){
        return expoServ.verExperienciaLaboral();
    }
    
-   @GetMapping( "/buscarExperiencia/{id}")
+   @GetMapping( "experiencia/buscar/{id}")
    public Experiencia_laboral buscarExperienciaLaboral(@PathVariable Long id) {
    return expoServ.buscarExperienciaLaboral(id);
 	}
    
-   @DeleteMapping("/deleteExperiencia/{id}")
+   @DeleteMapping("experiencia/delete/{id}")
    public void borrarExperienciaLaboral(@PathVariable Long id){
        expoServ.borrarExperienciaLaboral(id);
    }
    
-   //agregar update tecnologia
+    @PutMapping("experiencia/edit")
+   public void editarExperiencia(@RequestBody Experiencia_laboral expe){
+      expoServ.editarExperiencia(expe);
+   }
    
    //------------------------------------------------------------------------- 
    //Controller Experiencia Laboral
@@ -240,28 +265,32 @@ public class Controller {
    @Autowired
    private ITipoEducacionService tipoEduServ;
    
-   @PostMapping("/new/tipoEdu")
+   @PostMapping("tipoEdu/new")
    public void crearTipoEducacion(@RequestBody Tipo_educacion edu){
        tipoEduServ.crearTipoEducacion(edu);
        
    }
    
-   @GetMapping("/ver/tipoEdu")
+   @GetMapping("tipoEdu/ver")
    @ResponseBody
    public List<Tipo_educacion> verTipoEducacion(){
        return tipoEduServ.verTipoEducacion();
    }
    
-   @GetMapping( "/buscartipoEdu/{id}")
+   @GetMapping( "tipoEdu/buscar/{id}")
    public Tipo_educacion buscarTipoEducacion(@PathVariable Long id) {
    return tipoEduServ.buscarTipoEducacion(id);
 	}
    
-   @DeleteMapping("/deleteTipoEdu/{id}")
+   @DeleteMapping("tipoEdu/delete/{id}")
    public void borrarTipoEducacion(@PathVariable Long id){
        tipoEduServ.borrarTipoEducacion(id);
    }
-   //agregar update tecnologia
+ 
+   @PutMapping("tipoEdu/edit")
+   public void editarTipoEducacion(@RequestBody Tipo_educacion tipoEdu){
+     tipoEduServ.editarTipoEducacion(tipoEdu);
+   }
    
    //------------------------------------------------------------------------- 
    //Controller TipoTrabajo
@@ -269,27 +298,31 @@ public class Controller {
   @Autowired
   private ITipoTrabajoService tipoTrabServ;
    
-   @PostMapping("/new/tipoTrabajo")
+   @PostMapping("tipoTrabajo/new")
    public void crearTipoTrabajo(@RequestBody Tipo_trabajo tipoTrab){
      tipoTrabServ.crearTipoTrabajo(tipoTrab);
    }
    
-   @GetMapping("/ver/tipoTrabajo")
+   @GetMapping("tipoTrabajo/ver")
    @ResponseBody 
    public List<Tipo_trabajo> verTipTrabjos(){
        return tipoTrabServ.verTipoTrabajos();
    }
    
-   @GetMapping( "/buscarTipoTrabajo/{id}")
+   @GetMapping( "tipoTrabajo/buscar/{id}")
    public Tipo_trabajo buscarTipoTrabajo(@PathVariable Long id) {
    return tipoTrabServ.buscarTipoTrabajo(id);
 	}
    
-   @DeleteMapping("/deleteTipoTrabajo/{id}")
+   @DeleteMapping("tipoTrabajo/delete/{id}")
    public void borrarTipoTrabjo(@PathVariable Long id){
        tipoTrabServ.borrarTipoTrabajo(id);
    }
-   //agregar update tecnologia
+   
+   @PutMapping("tipoTrabajo/edit")
+   public void editarTipoTrabajo(@RequestBody Tipo_trabajo tipoTrab){
+     tipoTrabServ.editarTipoTrabajo(tipoTrab);
+   }
    
    //------------------------------------------------------------------------- 
    //Controller Educacion
@@ -297,29 +330,36 @@ public class Controller {
   @Autowired
   private IEducacionService eduServ;
    
-   @PostMapping("/new/educacion")
+   @PostMapping("educacion/new")
    public void crearEducacion(@RequestBody Educacion edu){
      eduServ.crearEducacion(edu);
    }
    
-   @GetMapping("/ver/educacion")
+   @GetMapping("educacion/ver")
    @ResponseBody 
    public List<Educacion> verEducacion(){
        return eduServ.verEducacion();
    }
    
-   @GetMapping( "/buscarEducacion/{id}")
+   @GetMapping( "educacion/buscar/{id}")
    public Educacion buscarEducacion(@PathVariable Long id) {
    return eduServ.buscarEducacion(id);
 	}
    
-   @DeleteMapping("/deleteEducacion/{id}")
+   @DeleteMapping("educacion/delete/{id}")
    public void borrarEducacion(@PathVariable Long id){
        eduServ.borrarEducacion(id);
    }
-   //agregar update educacion
    
-
+    @PutMapping("educacion/edit")
+   public void editarEducacion(@RequestBody Educacion edu){
+       eduServ.editarEducacion(edu);
+   }
+   
+  @PutMapping("educacion/editar/{id}")
+   public Educacion editarEducacionConId(@RequestBody Educacion edu, @PathVariable Long id){
+       return eduServ.editarEducacionConId(edu, id);
+   }
   
 
 }

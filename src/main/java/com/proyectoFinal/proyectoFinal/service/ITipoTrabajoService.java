@@ -10,4 +10,5 @@ public interface ITipoTrabajoService {
     public void crearTipoTrabajo (Tipo_trabajo tipoTrab);
     public void borrarTipoTrabajo (Long id);
     public Tipo_trabajo buscarTipoTrabajo (Long id);
+    public void editarTipoTrabajo( Tipo_trabajo tipoTrab);
 }

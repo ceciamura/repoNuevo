@@ -10,4 +10,5 @@ public interface ITipoEducacionService {
     public void crearTipoEducacion (Tipo_educacion edu);
     public void borrarTipoEducacion(Long id);
     public Tipo_educacion buscarTipoEducacion(Long id);
+    public void editarTipoEducacion(Tipo_educacion tipoEdu);
 }

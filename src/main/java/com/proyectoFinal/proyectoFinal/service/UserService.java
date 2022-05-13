@@ -45,5 +45,10 @@ public class UserService implements IUserService {
     public Users findByEmailUsuarioAndContrasenia(String emailUsuario, String contrasenia) {
          return userRepo.findByEmailUsuarioAndContrasenia(emailUsuario, contrasenia);
     }
+
+    @Override
+    public void editarUser(Users u) {
+       userRepo.save(u);
+    }
    
 }

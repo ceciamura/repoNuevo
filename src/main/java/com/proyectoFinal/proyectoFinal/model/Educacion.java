@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,6 +37,9 @@ public class Educacion {
     @Column (name="fechaInicio")
     private Date fechaInicio;
     
+    @Column (name="tipoEducacion")
+    private String tipoEducacion;
+    
     @Temporal (TemporalType.DATE)
     @Column (name="fechaFin")
     private Date fechaFin;
@@ -47,19 +49,22 @@ public class Educacion {
     @JsonBackReference
     private Persona persona_id;
     
-   @ManyToMany
-   private Collection<Tipo_educacion> tipoEducaciones = new HashSet();
+   //@ManyToMany
+   //private Collection<Tipo_educacion> tipoEducaciones = new HashSet();
     
     public Educacion() {
     }
 
-    public Educacion(Long id, String nombreEducacion, Date fechaInicio, Date fechaFin, Persona persona_id) {
+    public Educacion(Long id, String nombreEducacion, Date fechaInicio, String tipoEducacion, Date fechaFin, Persona persona_id) {
         this.id = id;
         this.nombreEducacion = nombreEducacion;
         this.fechaInicio = fechaInicio;
+        this.tipoEducacion = tipoEducacion;
         this.fechaFin = fechaFin;
         this.persona_id = persona_id;
     }
+
+   
 
     
     

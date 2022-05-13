@@ -12,4 +12,5 @@ public interface ISexoService {
     public void crearSexo (Sexo sexo);
     public void borrarSexo (Long id);
     public Sexo buscarSexo (Long id);
+    public void editarSexo(Sexo sexo);
 }

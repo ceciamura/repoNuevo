@@ -15,12 +15,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.FetchMode;
-import org.hibernate.annotations.Fetch;
+
 
 
 
@@ -31,7 +31,7 @@ public class Persona {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     @Column(name="id")
-    private Long id;
+    public Long id;
     
     @Column (name="nombre")
     private String nombre;
@@ -51,6 +51,7 @@ public class Persona {
     
     @Column (name="urlFoto")
     private String urlFoto;
+    
     
     
     @ManyToOne
@@ -82,11 +83,14 @@ public class Persona {
         this.domicilio = domicilio;
         this.email = email;
         this.urlFoto = urlFoto;
+        
         this.fk_sexo = fk_sexo;
         this.experiencias = experiencias;
         this.educaciones = educaciones;
         this.proyectos = proyectos;
     }
+
+   
 
     
 

@@ -32,5 +32,10 @@ public class ExperienciaLaboralService implements IExperienciaLaboralService{
     public Experiencia_laboral buscarExperienciaLaboral(Long id) {
            return expeRepo.findById(id).orElse(null);
     }
+
+    @Override
+    public void editarExperiencia(Experiencia_laboral expe) {
+            expeRepo.save(expe);
+    }
     
 }

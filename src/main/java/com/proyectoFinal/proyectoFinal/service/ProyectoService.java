@@ -2,10 +2,8 @@
 package com.proyectoFinal.proyectoFinal.service;
 
 import com.proyectoFinal.proyectoFinal.model.Proyecto;
-import com.proyectoFinal.proyectoFinal.model.Tecnologia;
 import com.proyectoFinal.proyectoFinal.repository.ProyectoRepository;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +36,11 @@ public class ProyectoService implements IProyectoService{
     public Proyecto buscarProyecto(Long id) {
         
           return proyRep.findById(id).orElse(null);
+    }
+
+    @Override
+    public void editarProyecto(Proyecto proy) {
+         proyRep.save(proy);
     }
     
     

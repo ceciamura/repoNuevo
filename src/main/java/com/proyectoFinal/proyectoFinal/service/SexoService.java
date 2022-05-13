@@ -33,5 +33,10 @@ public class SexoService implements ISexoService {
     public Sexo buscarSexo(Long id) {
         return sexoRepo.findById(id).orElse(null);
     }
+
+    @Override
+    public void editarSexo(Sexo sexo) {
+       sexoRepo.save(sexo);
+    }
     
 }

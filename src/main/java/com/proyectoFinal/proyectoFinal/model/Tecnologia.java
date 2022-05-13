@@ -1,9 +1,6 @@
 
 package com.proyectoFinal.proyectoFinal.model;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.Collection;
 import java.util.HashSet;
 import javax.persistence.Column;

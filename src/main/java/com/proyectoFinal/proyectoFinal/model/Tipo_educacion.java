@@ -4,15 +4,12 @@ package com.proyectoFinal.proyectoFinal.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -36,13 +33,15 @@ public class Tipo_educacion {
     
   
     
-  @ManyToMany(mappedBy="tipoEducaciones")
-  @JsonIgnore
- private Collection<Educacion> educaciones = new HashSet();
+  //@ManyToMany(mappedBy="tipoEducaciones")
+  //@JsonIgnore
+ //private Collection<Educacion> educaciones = new HashSet();
 
 
     public Tipo_educacion() {
     }
+    
+    
     
     
     

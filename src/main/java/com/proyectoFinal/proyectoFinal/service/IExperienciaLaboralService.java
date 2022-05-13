@@ -11,4 +11,5 @@ public interface IExperienciaLaboralService {
     public void crearExperienciaLaboral (Experiencia_laboral exper);
     public void borrarExperienciaLaboral (Long id);
     public Experiencia_laboral buscarExperienciaLaboral (Long id);
+    public void editarExperiencia(Experiencia_laboral expe);
 }
