@@ -28,9 +28,10 @@ public class Tipo_trabajo {
     @Column (name="nombreTipoTrabajo")
     private String nombreTipoTrabajo;
     
-  @ManyToMany(mappedBy="tipoTrabajos")
-  @JsonIgnore
-  private Collection<Experiencia_laboral> experiencias = new HashSet();
+    
+  //@ManyToMany(mappedBy="tipoTrabajos")
+  //@JsonIgnore
+  //private Collection<Experiencia_laboral> experiencias = new HashSet();
 
     public Tipo_trabajo() {
     }

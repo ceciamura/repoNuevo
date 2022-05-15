@@ -46,11 +46,7 @@ public class Users {
         this.emailUsuario = emailUsuario;
         this.contrasenia = contrasenia;
         this.persona = persona;
-    }
-
-    
-    
-    
+    } 
 
     
 

@@ -1,6 +1,7 @@
 
 package com.proyectoFinal.proyectoFinal.controller;
 
+import com.proyectoFinal.proyectoFinal.enums.tipoExperiencia;
 import com.proyectoFinal.proyectoFinal.model.Educacion;
 import com.proyectoFinal.proyectoFinal.model.Experiencia_laboral;
 import com.proyectoFinal.proyectoFinal.model.Persona;
@@ -234,6 +235,7 @@ public class Controller {
    
    @PostMapping("experiencia/new")
    public void crearExperienciaLaboral(@RequestBody Experiencia_laboral expo){
+       System.out.println(expo.toString());
        expoServ.crearExperienciaLaboral(expo);
        
    }
@@ -259,6 +261,8 @@ public class Controller {
       expoServ.editarExperiencia(expe);
    }
    
+    
+
    //------------------------------------------------------------------------- 
    //Controller Experiencia Laboral
    
@@ -305,7 +309,7 @@ public class Controller {
    
    @GetMapping("tipoTrabajo/ver")
    @ResponseBody 
-   public List<Tipo_trabajo> verTipTrabjos(){
+   public List<Tipo_trabajo> verTipoTrabjos(){
        return tipoTrabServ.verTipoTrabajos();
    }
    

@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import lombok.Getter;
@@ -58,8 +59,8 @@ public class Experiencia_laboral {
     @Column (name="descripcion")
     private String descripcion;
     
-     @Column (name="tipoExperiencia")
-     private tipoExperiencia tipoExperiencia;
+    // @Column (name="tipoExperiencia")
+    // private tipoExperiencia tipoExperiencia;
    
     @ManyToOne
     @JoinColumn(name="persona_id")
@@ -68,24 +69,28 @@ public class Experiencia_laboral {
     
     
     
-   @ManyToMany
-   private Collection<Tipo_trabajo> tipoTrabajos = new HashSet();
+   @ManyToOne
+   @JoinColumn(name="tipoTrabajo_id")
+  //  @JsonBackReference
+   private Tipo_trabajo tipoTrabajos;
     
    
 
     public Experiencia_laboral() {
     }
 
-    public Experiencia_laboral(Long id, String nombre_experiencia, boolean es_actual, Date fecha_inicio, Date fecha_fin, String descripcion, tipoExperiencia tipoExperiencia, Persona persona_id) {
+    public Experiencia_laboral(Long id, String nombre_experiencia, boolean es_actual, Date fecha_inicio, Date fecha_fin, String descripcion, Persona persona_id, Tipo_trabajo tipoTrabajos) {
         this.id = id;
         this.nombre_experiencia = nombre_experiencia;
         this.es_actual = es_actual;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
         this.descripcion = descripcion;
-        this.tipoExperiencia = tipoExperiencia;
         this.persona_id = persona_id;
+        this.tipoTrabajos = tipoTrabajos;
     }
+
+   
 
   
 

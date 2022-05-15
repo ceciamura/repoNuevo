@@ -4,10 +4,17 @@
  */
 package com.proyectoFinal.proyectoFinal.enums;
 
-/**
- *
- * @author cecil
- */
+
 public enum tipoExperiencia {
-    FullTime, Freelance
+    FULLTIME("FullTime"),
+    FREELANCE("Freelance");
+    
+   private tipoExperiencia(String texto){
+       this.texto=texto;
+   }
+   private String texto;
+   
+   public String getTexto(){
+    return this.texto;
+}
 }
