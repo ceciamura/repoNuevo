@@ -37,8 +37,8 @@ public class Educacion {
     @Column (name="fechaInicio")
     private Date fechaInicio;
     
-    @Column (name="tipoEducacion")
-    private String tipoEducacion;
+    //@Column (name="tipoEducacion")
+    //private String tipoEducacion;
     
     @Temporal (TemporalType.DATE)
     @Column (name="fechaFin")
@@ -52,18 +52,24 @@ public class Educacion {
    //@ManyToMany
    //private Collection<Tipo_educacion> tipoEducaciones = new HashSet();
     
+   @ManyToOne
+   @JoinColumn(name="tipoeducacion_id")
+  //  @JsonBackReference
+   private Tipo_educacion tipoEducacion;
+    
     public Educacion() {
     }
 
-    public Educacion(Long id, String nombreEducacion, Date fechaInicio, String tipoEducacion, Date fechaFin, Persona persona_id) {
+    public Educacion(Long id, String nombreEducacion, Date fechaInicio, Date fechaFin, Persona persona_id, Tipo_educacion tipoEducacion) {
         this.id = id;
         this.nombreEducacion = nombreEducacion;
         this.fechaInicio = fechaInicio;
-        this.tipoEducacion = tipoEducacion;
         this.fechaFin = fechaFin;
         this.persona_id = persona_id;
+        this.tipoEducacion = tipoEducacion;
     }
 
+    
    
 
     

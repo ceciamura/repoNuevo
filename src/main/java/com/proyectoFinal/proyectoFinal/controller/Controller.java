@@ -7,6 +7,7 @@ import com.proyectoFinal.proyectoFinal.model.Experiencia_laboral;
 import com.proyectoFinal.proyectoFinal.model.Persona;
 import com.proyectoFinal.proyectoFinal.model.Proyecto;
 import com.proyectoFinal.proyectoFinal.model.Sexo;
+import com.proyectoFinal.proyectoFinal.model.SoftSkills;
 import com.proyectoFinal.proyectoFinal.model.Tecnologia;
 import com.proyectoFinal.proyectoFinal.model.Tipo_educacion;
 import com.proyectoFinal.proyectoFinal.model.Tipo_trabajo;
@@ -16,6 +17,7 @@ import com.proyectoFinal.proyectoFinal.service.IExperienciaLaboralService;
 import com.proyectoFinal.proyectoFinal.service.IPersonaService;
 import com.proyectoFinal.proyectoFinal.service.IProyectoService;
 import com.proyectoFinal.proyectoFinal.service.ISexoService;
+import com.proyectoFinal.proyectoFinal.service.ISoftSkillsService;
 import com.proyectoFinal.proyectoFinal.service.ITecnologiaService;
 import com.proyectoFinal.proyectoFinal.service.ITipoEducacionService;
 import com.proyectoFinal.proyectoFinal.service.ITipoTrabajoService;
@@ -365,6 +367,41 @@ public class Controller {
        return eduServ.editarEducacionConId(edu, id);
    }
   
-
+//---------------------CONTROLLER SOFTSKILLS--------------------------------------//
+    @Autowired
+  private ISoftSkillsService softServ;
+   
+   @PostMapping("soft/new")
+   public void crearSoftSkills(@RequestBody SoftSkills soft){
+     softServ.crearSoftSkills(soft);
+   }
+   
+   @GetMapping("soft/ver")
+   @ResponseBody 
+   public List<SoftSkills> verSoftSkills(){
+       
+       
+       return softServ.verSoftSkills();
+   }
+   
+   @GetMapping( "soft/buscar/{id}")
+   public SoftSkills buscarSoftSkills(@PathVariable Long id) {
+   return softServ.buscarSoftSkills(id);
+	}
+   
+   @DeleteMapping("soft/delete/{id}")
+   public void borrarSoftSkills(@PathVariable Long id){
+       softServ.borrarSoftSkills(id);
+   }
+   
+    @PutMapping("soft/edit")
+   public void editarSoftSkills(@RequestBody SoftSkills soft){
+       softServ.editarSoftSkills(soft);
+   }
+   
+  @PutMapping("soft/editar/{id}")
+   public SoftSkills editarSoftSkillsConId(@RequestBody SoftSkills soft, @PathVariable Long id){
+       return softServ.editarSoftSkillsConId(soft, id);
+   }
 }
 
