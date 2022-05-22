@@ -7,7 +7,8 @@ import com.proyectoFinal.proyectoFinal.model.Experiencia_laboral;
 import com.proyectoFinal.proyectoFinal.model.Persona;
 import com.proyectoFinal.proyectoFinal.model.Proyecto;
 import com.proyectoFinal.proyectoFinal.model.Sexo;
-import com.proyectoFinal.proyectoFinal.model.SoftSkills;
+import com.proyectoFinal.proyectoFinal.model.HardSkills;
+import com.proyectoFinal.proyectoFinal.model.SoftSkill;
 import com.proyectoFinal.proyectoFinal.model.Tecnologia;
 import com.proyectoFinal.proyectoFinal.model.Tipo_educacion;
 import com.proyectoFinal.proyectoFinal.model.Tipo_trabajo;
@@ -17,7 +18,6 @@ import com.proyectoFinal.proyectoFinal.service.IExperienciaLaboralService;
 import com.proyectoFinal.proyectoFinal.service.IPersonaService;
 import com.proyectoFinal.proyectoFinal.service.IProyectoService;
 import com.proyectoFinal.proyectoFinal.service.ISexoService;
-import com.proyectoFinal.proyectoFinal.service.ISoftSkillsService;
 import com.proyectoFinal.proyectoFinal.service.ITecnologiaService;
 import com.proyectoFinal.proyectoFinal.service.ITipoEducacionService;
 import com.proyectoFinal.proyectoFinal.service.ITipoTrabajoService;
@@ -34,6 +34,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import com.proyectoFinal.proyectoFinal.service.IHardSkillsService;
+import com.proyectoFinal.proyectoFinal.service.ISoftSkillService;
 
 @RestController
 @RequestMapping("/api/")
@@ -202,16 +204,18 @@ public class Controller {
    @Autowired
    private ITecnologiaService tecnoServ;
    
-   @PostMapping("tecnologia/new")
-   public void crearTecnologia(@RequestBody Tecnologia tecno){
-       tecnoServ.crearTecnologia(tecno);
-       
-   }
+  
    
    @GetMapping("tecnologia/ver")
    @ResponseBody
    public List<Tecnologia> verTecnologias(){
        return tecnoServ.verTecnologias();
+   }
+   
+    @PostMapping("tecnologia/new")
+   public void crearTecnologia(@RequestBody Tecnologia tecno){
+       tecnoServ.crearTecnologia(tecno);
+       
    }
    
    @GetMapping( "tecnologia/buscar/{id}")
@@ -369,23 +373,59 @@ public class Controller {
   
 //---------------------CONTROLLER SOFTSKILLS--------------------------------------//
     @Autowired
-  private ISoftSkillsService softServ;
+  private IHardSkillsService hardServ;
+   
+   @PostMapping("hard/new")
+   public void crearHardSkills(@RequestBody HardSkills hard){
+     hardServ.crearHardSkills(hard);
+   }
+   
+   @GetMapping("hard/ver")
+   @ResponseBody 
+   public List<HardSkills> verHardSkills(){
+       
+       
+       return hardServ.verHardSkills();
+   }
+   
+   @GetMapping( "hard/buscar/{id}")
+   public HardSkills buscarHardSkills(@PathVariable Long id) {
+   return hardServ.buscarHardSkills(id);
+	}
+   
+   @DeleteMapping("hard/delete/{id}")
+   public void borrarHardSkills(@PathVariable Long id){
+       hardServ.borrarHardSkills(id);
+   }
+   
+    @PutMapping("hard/edit")
+   public void editarHardSkills(@RequestBody HardSkills hard){
+       hardServ.editarHardSkills(hard);
+   }
+   
+  @PutMapping("hard/editar/{id}")
+   public HardSkills editarHardSkillsConId(@RequestBody HardSkills hard, @PathVariable Long id){
+       return hardServ.editarHardSkillsConId(hard, id);
+   }
+   
+   //---------------------CONTROLLER SOFTSKILLS--------------------------------------//
+    @Autowired
+  private ISoftSkillService softServ;
    
    @PostMapping("soft/new")
-   public void crearSoftSkills(@RequestBody SoftSkills soft){
+   public void crearSoftSkills(@RequestBody SoftSkill soft){
      softServ.crearSoftSkills(soft);
    }
    
    @GetMapping("soft/ver")
    @ResponseBody 
-   public List<SoftSkills> verSoftSkills(){
-       
+   public List<SoftSkill> verSoftSkills(){ 
        
        return softServ.verSoftSkills();
    }
    
    @GetMapping( "soft/buscar/{id}")
-   public SoftSkills buscarSoftSkills(@PathVariable Long id) {
+   public SoftSkill buscarSoftSkills(@PathVariable Long id) {
    return softServ.buscarSoftSkills(id);
 	}
    
@@ -395,13 +435,20 @@ public class Controller {
    }
    
     @PutMapping("soft/edit")
-   public void editarSoftSkills(@RequestBody SoftSkills soft){
+   public void editarSoftSkills(@RequestBody SoftSkill soft){
        softServ.editarSoftSkills(soft);
    }
    
   @PutMapping("soft/editar/{id}")
-   public SoftSkills editarSoftSkillsConId(@RequestBody SoftSkills soft, @PathVariable Long id){
+   public SoftSkill editarSoftSkillsConId(@RequestBody SoftSkill soft, @PathVariable Long id){
        return softServ.editarSoftSkillsConId(soft, id);
    }
+   
+   
+   
+   
+   
+   
+       
 }
 

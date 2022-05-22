@@ -35,11 +35,15 @@ private Long id;
 @Column(name="nombre")
 private String nombre;
 
+
 @Column(name="github")
 private String github;
 
 @Column(name="portada")
 private String portada;
+
+@Column(name="imagen")
+private String imagen;
 
 @Temporal(TemporalType.DATE)
 @Column(name="anio")
@@ -59,22 +63,23 @@ private Date anio;
     public Proyecto() {
     }
 
-    public Proyecto(Long id, String nombre, String github, String portada, Date anio, Persona persona_id) {
+    public Proyecto(Long id, String nombre, String github, String portada, String imagen, Date anio, Persona persona_id) {
         this.id = id;
         this.nombre = nombre;
         this.github = github;
         this.portada = portada;
+        this.imagen = imagen;
         this.anio = anio;
         this.persona_id = persona_id;
     }
 
-    
+   
+
     
 
    
     
 
-   
 
     
 

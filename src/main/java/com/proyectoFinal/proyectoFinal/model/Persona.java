@@ -65,7 +65,7 @@ public class Persona {
  
  @OneToMany(cascade=CascadeType.ALL, mappedBy="persona_id", fetch= FetchType.LAZY)
  @JsonManagedReference
-  private List<SoftSkills> softSkills;
+  private List<HardSkills> softSkills;
  
  @OneToMany(cascade=CascadeType.ALL, mappedBy="persona_id", fetch= FetchType.LAZY)
  @JsonManagedReference
@@ -80,7 +80,7 @@ public class Persona {
     public Persona() {
     }
 
-    public Persona(Long id, String nombre, String apellido, String domicilio, String email, String urlFoto, Sexo fk_sexo, List<Experiencia_laboral> experiencias, List<SoftSkills> softSkills, List<Educacion> educaciones, List<Proyecto> proyectos) {
+    public Persona(Long id, String nombre, String apellido, String domicilio, String email, String urlFoto, Sexo fk_sexo, List<Experiencia_laboral> experiencias, List<HardSkills> softSkills, List<Educacion> educaciones, List<Proyecto> proyectos) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
