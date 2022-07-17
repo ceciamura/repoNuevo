@@ -40,7 +40,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
 
-@CrossOrigin(origins="https://argprogceciamura.web.app")
+//@CrossOrigin(origins="https://argprogceciamura.web.app")
 @RequestMapping("/api/")
 public class Controller {
  
