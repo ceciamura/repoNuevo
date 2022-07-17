@@ -36,9 +36,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.proyectoFinal.proyectoFinal.service.IHardSkillsService;
 import com.proyectoFinal.proyectoFinal.service.ISoftSkillService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
 @RequestMapping("/api/")
+@CrossOrigin(origins="https://portfolio-ceci-amura.herokuapp.com")
 public class Controller {
  
   //Controller persona  
