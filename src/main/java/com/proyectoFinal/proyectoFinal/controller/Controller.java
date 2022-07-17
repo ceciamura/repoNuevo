@@ -39,8 +39,9 @@ import com.proyectoFinal.proyectoFinal.service.ISoftSkillService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
+
+@CrossOrigin(origins="https://argprogceciamura.web.app")
 @RequestMapping("/api/")
-@CrossOrigin(origins="https://portfolio-ceci-amura.herokuapp.com")
 public class Controller {
  
   //Controller persona  
