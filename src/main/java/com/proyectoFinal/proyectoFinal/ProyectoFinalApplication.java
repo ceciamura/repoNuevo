@@ -14,14 +14,14 @@ public class ProyectoFinalApplication {
 	}
 
         
-        @Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("https://argprogceciamura.web.app")
-                                .allowedMethods("*").allowedHeaders("*");
-			}
-		};
-	}
+       // @Bean
+	//public WebMvcConfigurer corsConfigurer() {
+	//	return new WebMvcConfigurer() {
+	//		@Override
+	//		public void addCorsMappings(CorsRegistry registry) {
+	//			registry.addMapping("/**").allowedOrigins("https://argprogceciamura.web.app")
+          //                      .allowedMethods("*").allowedHeaders("*");
+	//		}
+	//	};
+	//}
 }
